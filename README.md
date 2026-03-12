@@ -12,7 +12,7 @@ Don't forget that you must also fill out an evaluation form in Moodle to conside
 ## Grading
 
 (802-23-1757) (Alexa M. Irizarry Vargas) (alexa.irizarry@upr.edu)
-(STUDENT NUMBER HERE) (STUDENT NAME HERE) (STUDENT EMAIL HERE)
+(843-22-5174) (Laura B. Ramos Serrano) (laura.ramos16@upr.edu)
 
 Any project that doesn't compile will receive a 0.
 
