@@ -54,6 +54,7 @@ void StdEnemy::draw() {
 }
 
 void StdEnemy::update(std::pair<float, float> pos, HitBox target) {
+    points = 100;
     frameChange();
     if (!spawning && this->specialCooldown > 0) {
         this->position.first = pos.first;

@@ -13,9 +13,10 @@ class Enemy {
         bool spawning = false;
         bool frame = false;
         int frameCooldown = 30;
-        
+
     public:
         int health = 1;
+        int points = 100;
         std::pair<float, float> position;
         HitBox hitBox;
 
@@ -38,15 +39,18 @@ class Enemy {
         void frameChange() {
             frameCooldown--;
 
-             if (frameCooldown <= 0) {
+            if (frameCooldown <= 0) {
                 frame = !frame;
                 frameCooldown = 30;
-             }
+            }
         }
 
-        static void ManageEnemies(HitBox target) {
+        static int ManageEnemies(HitBox target) {
+            int pointsEarned = 0;
+
             for (std::pair<std::pair<float, float>, Enemy*>& p : Enemy::enemies) {
                 p.first.first += (p.first.first == 0) ? 0 : direction;
+
                 if (p.second) {
                     p.second->update(p.first, target);
 
@@ -59,19 +63,28 @@ class Enemy {
                     }
 
                     if (p.second->health <= 0) {
+                        pointsEarned += p.second->points;
+
                         Animation::animations.push_back(
-                            Animation(p.second->position.first, p.second->position.second, 155, 0, 33, 33, 30, 30, 4, ImageManager::SpriteSheet)
+                            Animation(
+                                p.second->position.first,
+                                p.second->position.second,
+                                155, 0, 33, 33, 30, 30, 4,
+                                ImageManager::SpriteSheet
+                            )
                         );
+
                         p.second = nullptr;
                     }
                 }
             }
-            
+
             for (int i = 0; i < Enemy::enemies.size(); i++) {
-                if ((Enemy::enemies[i].second && Enemy::enemies[i].second->position.first <= -30) || 
+                if ((Enemy::enemies[i].second && Enemy::enemies[i].second->position.first <= -30) ||
                     (!Enemy::enemies[i].second && Enemy::enemies[i].first.first == 0 && Enemy::enemies[i].first.second == 0)) {
                     Enemy::enemies.erase(Enemy::enemies.begin() + i);
                     PlaySound(SoundManager::dead);
+                    i--;
                 }
             }
 
@@ -81,5 +94,7 @@ class Enemy {
                 directionChange = 0;
                 direction *= -1;
             }
+
+            return pointsEarned;
         }
 };

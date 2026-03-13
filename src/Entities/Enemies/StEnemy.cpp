@@ -3,17 +3,19 @@
 void StEnemy::draw() {
     if (HitBox::drawHitbox) this->hitBox.draw();
     DrawTexturePro(ImageManager::SpriteSheet, Rectangle{2, 111, 13, 13}, 
-                                Rectangle{this->position.first, this->position.second, 30, 30}, 
-                                Vector2{0, 0}, 0, WHITE);
+                   Rectangle{this->position.first, this->position.second, 30, 30}, 
+                   Vector2{0, 0}, 0, WHITE);
 }
 
 void StEnemy::update(std::pair<float, float> pos, HitBox target) {
+    points = 150;
+
     if (!spawning) {
         this->position.first = pos.first;
         this->position.second = pos.second;
         this->hitBox.box.x = pos.first;
         this->hitBox.box.y = pos.second;
-        this->cooldown--; 
+        this->cooldown--;
     } else {
         float xFact = (pos.first - this->position.first) / Math::getDistance(this->position, pos);
         float yFact = (pos.second - this->position.second) / Math::getDistance(this->position, pos);
@@ -29,7 +31,7 @@ void StEnemy::update(std::pair<float, float> pos, HitBox target) {
             this->spawning = false;
         }
     }
-    
+
     if (this->cooldown <= 0) {
         Projectile::projectiles.push_back(Projectile(Projectile(position.first + + this->hitBox.box.width / 2, position.second, 1)));
         PlaySound(SoundManager::shoot);

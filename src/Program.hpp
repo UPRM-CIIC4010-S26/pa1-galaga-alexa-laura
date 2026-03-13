@@ -9,16 +9,20 @@
 #include "SpEnemy.hpp"
 #include "StEnemy.hpp"
 #include "DyEnemy.hpp"
+
 class Program {
     private:
         Background background = Background();
         Player* player = new Player((GetScreenWidth() / 2) - 15, GetScreenHeight() * 0.75f);
+
         int respawnCooldown = 1080;
         int respawns = 0;
         int count = 0;
         int delay = 0;
         int lives = 3;
         int pauseFrames = 0;
+        int score = 0;
+        int nextLifeMilestone = 1000;
 
         bool startup = true;
         bool paused = false;
@@ -26,7 +30,7 @@ class Program {
 
     public:
         Program();
-        
+
         void Update();
         void Draw();
         void ManageEnemyRespawns();
@@ -36,6 +40,7 @@ class Program {
         void KeyInputs();
         void PlayerReset();
         void Reset();
-          
+        void AddScore(int points);
+
         ~Program() {}
 };

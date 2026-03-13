@@ -1,6 +1,5 @@
 #include "SpEnemy.hpp"
 
-
 void SpEnemy::draw() {
     if (HitBox::drawHitbox) this->hitBox.draw();
     if (health > 2) {
@@ -28,6 +27,7 @@ void SpEnemy::draw() {
 }
 
 void SpEnemy::update(std::pair<float, float> pos, HitBox target) {
+    points = 200;
     frameChange();
 
     if (!spawning && this->specialCooldown > 0) {
