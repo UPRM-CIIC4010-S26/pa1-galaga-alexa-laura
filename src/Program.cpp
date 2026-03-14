@@ -96,6 +96,7 @@ void Program::Draw() {
     }
 
     for (Projectile p : Projectile::projectiles) p.draw();
+
     for (std::pair<std::pair<float, float>, Enemy*>& p : Enemy::enemies) {
         if (p.second) p.second->draw();
     }
@@ -155,19 +156,29 @@ void Program::ManageEnemyRespawns() {
 void Program::DrawStartup() {
     DrawRectangle(0, 0, (float)GetScreenWidth(), (float)GetScreenHeight(), Color{0, 0, 0, 125});
     DrawText("Galaga", (GetScreenWidth() / 2 - 237), 75, 144, WHITE);
-    DrawText("Press Enter", (GetScreenWidth() / 2) - 75, GetScreenHeight() / 2, 24, GRAY);
+
+    if (((int)(GetTime() * 2)) % 2 == 0) {
+        DrawText("Press Enter", (GetScreenWidth() / 2) - 75, GetScreenHeight() / 2, 24, GRAY);
+    }
 }
 
 void Program::DrawPauseScreen() {
     DrawRectangle(0, 0, (float)GetScreenWidth(), (float)GetScreenHeight(), Color{0, 0, 0, 125});
     DrawText("Paused", (GetScreenWidth() / 2) - 85, GetScreenHeight() / 2 - 60, 48, WHITE);
-    DrawText("Press Enter", (GetScreenWidth() / 2) - 75, GetScreenHeight() / 2, 24, GRAY);
+
+    if (((int)(GetTime() * 2)) % 2 == 0) {
+        DrawText("Press Enter", (GetScreenWidth() / 2) - 75, GetScreenHeight() / 2, 24, GRAY);
+    }
 }
 
 void Program::DrawGameOver() {
     DrawRectangle(0, 0, (float)GetScreenWidth(), (float)GetScreenHeight(), Color{0, 0, 0, 125});
     DrawText("Game Over", (GetScreenWidth() / 2) - 380, 50, 144, WHITE);
-    DrawText("Press Enter", (GetScreenWidth() / 2) - 75, GetScreenHeight() / 2, 24, GRAY);
+    DrawText(TextFormat("Final Score: %i", score), (GetScreenWidth() / 2) - 90, GetScreenHeight() / 2 - 40, 24, GRAY);
+
+    if (((int)(GetTime() * 2)) % 2 == 0) {
+        DrawText("Press Enter", (GetScreenWidth() / 2) - 75, GetScreenHeight() / 2, 24, GRAY);
+    }
 }
 
 void Program::KeyInputs() {
